@@ -6,7 +6,7 @@ node{
 stage('build'){
     sh "${mavenhome}/bin/mvn clean package"
 }
-  /*
+ 
 stage('execuutesonar qube  report'){
     sh "${mavenhome}/bin/mvn clean sonar:sonar"
 }
@@ -24,5 +24,5 @@ stage('send email notification')
 {
     emailext body: 'regards pora puka,kojja', subject: 'build over..', to: 'chandramohan870915@gmail.com,sandeep8008700138@gmail.com'
 }
-*/
+
 }
