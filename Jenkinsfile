@@ -1,4 +1,4 @@
-node{
+node('slaves'){
     def mavenhome = tool name:"maven3.6.3"
     stage('checkout'){
         git branch: 'development', credentialsId: '8c254bb9-1859-4bee-addc-ff7181206f0c', url: 'https://github.com/kotipisandeep/maven-web-application.git'
@@ -6,7 +6,7 @@ node{
 stage('build'){
     sh "${mavenhome}/bin/mvn clean package"
 }
-    /*
+    
  
 stage('execuutesonar qube  report'){
     sh "${mavenhome}/bin/mvn clean sonar:sonar"
@@ -25,5 +25,4 @@ stage('send email notification')
 {
     emailext body: 'regards pora puka,kojja', subject: 'build over..', to: 'chandramohan870915@gmail.com,sandeep8008700138@gmail.com'
 }
-*/
 }
