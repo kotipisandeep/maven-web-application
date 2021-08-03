@@ -1,0 +1,59 @@
+pipeline{
+    agent{
+        label'master'
+    }
+    tools{
+ maven 'maven3.6.3'
+    }
+    triggers{
+    
+        //pollscm
+        pollSCM('* * * * *')
+        //buildperodically
+        //cron('* * * * *')
+    }
+    stages{
+        stage('checkout code'){
+            steps{
+                        git branch: 'development', credentialsId: '8c254bb9-1859-4bee-addc-ff7181206f0c', url: 'https://github.com/kotipisandeep/maven-web-application.git'
+
+            }
+        }
+        stage('build'){
+            steps{
+                
+          sh  "mvn clean package"
+            }
+        }
+        /*
+        stage('eucutesonarqube report'){
+            steps{
+                
+          sh  "mvn clean sonar:sonar"
+            }
+        }
+        stage('uploadartifactes into nexus'){
+            steps{
+                
+          sh  "mvn clean deploy"
+            }
+        }
+        stage('deployappintotomcat'){
+            steps{
+                
+              sshagent(['f4351532-9b07-4c77-a6d1-77ba573320bf']) {
+   sh "scp  -o  StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.233.45.211:/opt/apache-tomcat-9.0.50/webapps"
+}
+            }
+        }
+        */
+    }//stageclosing
+    post{
+        success{
+            emailext body: 'regards pora puka,kojja', subject: 'build over..', to: 'chandramohan870915@gmail.com,sandeep8008700138@gmail.com'
+        }
+        failure{
+            emailext body: 'regards pora puka,kojja', subject: 'build over..', to: 'chandramohan870915@gmail.com,sandeep8008700138@gmail.com'
+    }
+    }
+}//pipeclosing
