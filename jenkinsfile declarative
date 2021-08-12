@@ -5,13 +5,7 @@ pipeline{
     tools{
  maven 'maven3.6.3'
     }
-    triggers{
     
-        //pollscm
-       //pollSCM('* * * * *')
-        //buildperodically
-        //cron('* * * * *')
-    }
     stages{
         stage('checkout code'){
             steps{
